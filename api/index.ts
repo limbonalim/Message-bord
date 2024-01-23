@@ -2,10 +2,13 @@ import express from 'express';
 import {imagesUpload} from './multer';
 import {randomUUID} from 'crypto';
 import {createMessage, getMessage} from './fileBD';
+import cors from 'cors'
 import {IMessage} from './types'
 
 const app = express();
 const port = 8000;
+
+app.use(cors());
 
 app.post('/', imagesUpload.single('image'), async (req, res, next) => {
   try {
