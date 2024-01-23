@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-import FormatDate from "../UI/FormatDate/FormatDate.ts";
+import FormatDate from '../UI/FormatDate/FormatDate.ts';
 
 interface Props {
   message: string;
@@ -26,15 +26,15 @@ const Message: React.FC<Props> = ({message, dateTime, author, image}) => {
   if (image) {
     imageItem = (
       <CardMedia
-        sx={{ height: 140}}
+        sx={{height: 140}}
         image={image}
-        title={author? author : message}
+        title={author ? author : message}
       />
     );
   }
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{maxWidth: 345}}>
       <CardActionArea>
         {imageItem}
         <CardContent>
