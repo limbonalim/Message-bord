@@ -1,10 +1,30 @@
 import express from 'express';
+import {imagesUpload} from './multer';
+import {randomUUID} from 'crypto';
+import {createMessage} from './fileBD';
+import {IMessage} from './types'
 
 const app = express();
 const port = 8000;
 
-app.get('/', (req, res) => {
-  res.send('The server is work now');
+app.post('/', imagesUpload.single('image'), async (req, res, next) => {
+  try {
+    if (!req.body.message) {
+      return res.status(400).send({error: 'Message must be present in the request'});
+    }
+
+    const message: IMessage = {
+      id: randomUUID(),
+      dateTime: new Date().toISOString(),
+      author: req.body.author? req.body.author : null,
+      message: req.body.message,
+      image: req.file ? req.file.filename : null
+    };
+    void createMessage(message);
+    return res.send(message);
+  } catch (e) {
+    next(e);
+  }
 });
 
 app.listen(port, () => {
