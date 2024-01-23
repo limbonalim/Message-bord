@@ -1,7 +1,7 @@
 import express from 'express';
 import {imagesUpload} from './multer';
 import {randomUUID} from 'crypto';
-import {createMessage} from './fileBD';
+import {createMessage, getMessage} from './fileBD';
 import {IMessage} from './types'
 
 const app = express();
@@ -21,7 +21,16 @@ app.post('/', imagesUpload.single('image'), async (req, res, next) => {
       image: req.file ? req.file.filename : null
     };
     void createMessage(message);
-    return res.send(message);
+    return res.status(201).send(message);
+  } catch (e) {
+    next(e);
+  }
+});
+
+
+app.get('/', async (req, res, next) => {
+  try {
+    res.send(await getMessage());
   } catch (e) {
     next(e);
   }
