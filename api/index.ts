@@ -8,6 +8,7 @@ import {IMessage} from './types'
 const app = express();
 const port = 8000;
 
+app.use(express.static('public'));
 app.use(cors());
 
 app.post('/', imagesUpload.single('image'), async (req, res, next) => {
@@ -21,7 +22,7 @@ app.post('/', imagesUpload.single('image'), async (req, res, next) => {
       dateTime: new Date().toISOString(),
       author: req.body.author? req.body.author : null,
       message: req.body.message,
-      image: req.file ? req.file.filename : null
+      image: req.file ? `images/${req.file.filename}` : null
     };
     void createMessage(message);
     return res.status(201).send(message);
