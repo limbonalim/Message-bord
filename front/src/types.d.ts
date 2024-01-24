@@ -5,3 +5,9 @@ export interface IMessage {
   message: string;
   image: string | null;
 }
+
+export interface IFormMessage {
+  author: string;
+  message: string;
+  image: File | null;
+}
