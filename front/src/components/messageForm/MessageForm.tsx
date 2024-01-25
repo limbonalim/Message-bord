@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { Button, Grid, TextField } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 import type { IFormMessage } from '../../types';
 import FileInput from '../UI/FileInput/FileInput.tsx';
 import {useAppDispatch, useAppSelector} from '../../app/hooks.ts';
@@ -46,9 +47,12 @@ const MessageForm: React.FC<Props> = () => {
     <form
       onSubmit={onSubmit}
     >
-      <Grid container direction="column" spacing={2} xl>
-        <Grid item xl>
+      <Grid container direction="column" spacing={2}>
+        <Grid item>
           <TextField
+            sx={{
+              width: '100%'
+            }}
             onChange={onChange}
             value={message.author}
             name="author"
@@ -58,6 +62,9 @@ const MessageForm: React.FC<Props> = () => {
         </Grid>
         <Grid item>
           <TextField
+            sx={{
+              width: '100%'
+            }}
             onChange={onChange}
             value={message.message}
             multiline
@@ -75,7 +82,9 @@ const MessageForm: React.FC<Props> = () => {
             label="Add imeage"
           />
         </Grid>
-        <Button type="submit" disabled={isLoading}>Submit</Button>
+        <Grid item>
+          <LoadingButton type="submit" disabled={isLoading} loading={isLoading} variant='outlined'>Submit</LoadingButton>
+        </Grid>
       </Grid>
     </form>
   );
